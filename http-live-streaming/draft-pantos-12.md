@@ -96,9 +96,31 @@ This Informational Internet Draft is submitted as an RFC Editor Contribution and
 HTTPのような関連した標準の参考文献は第11章に挙げる。
 
 ## 2. 概要
-一つのマルチメディアpresentationはプレイリストファイルを指すURIによって特定される。そのプレイリストはメディアのURIとメディアに対する情報を表すためのタグからなるリストである。このメディアのURIと関連するタグは、メディアセグメントの流れを特定する。
+１つのマルチメディアpresentationはプレイリストファイルを指す１つのURIによって特定される。そのプレイリストはメディアのURIとメディアに対する情報を表すためのタグからなるリストである。このメディアのURIと関連するタグは、メディアセグメントの流れを特定する。
 
 presentationを再生するために、クライアントは初めにプレイリストファイルを取得し、それからプレイリストに記載された各メディアセグメントを取得・再生する。クライアントはこの仕様書に記載されているように、セグメントの追加を検出するためにプレイリストファイルを再取得する。
 
 この文書のキーワード "MUST"、"MUST NOT"、"REQUIRED"、"SHALL"、"SHALL NOT"、"SHOULD"、"SHOULD NOT"、"RECOMMENDED"、"MAY"、そして "OPTIONAL" は RFC 2119 [[RFC2119](http://tools.ietf.org/html/rfc2119)] で記述されたとおりに解釈されるべきである。
 
+## 3. プレイリストファイル
+### 3.1. 導入
+プレイリストはM3Uプレイリスト[[M3U](http://tools.ietf.org/html/draft-pantos-http-live-streaming-12#ref-M3U)]を拡張したもので**なければならない**。この仕様書では追加のタグを定義することによって、M3Uファイルフォーマットを拡張する。
+
+M3Uプレイリストは独立した複数の行からなるテキストファイルである。各行の終端はLFもしくはCRLFである。各行は、URIを表す行か、空行か、もしくは'#'で始まる。空行は無視される。空白はそれが明示的に指定されている要素以外で現れては**ならない**。
+URI行に書かれたURIは、メディアセグメントかプレイリストファイル（3.4.10）を指す。各メディアセグメントはメディアURIとそれにかかるタグによって記述される。
+
+すべてのURI行がメディアセグメントを指している場合、そのプレイリストをメディアプレイリストと呼ぶ。すべてのURI行がメディアプレイリストを指している場合、そのプレイリストをマスタープレイリストと呼ぶ。
+
+'#'で始まる行はコメントかタグである。
+
+タグは#EXTで始まる。それ以外の'#'で始まるすべての行はコメントであり、無視される**べきである**。
+
+プレイリストにあるURIは、URI行であってもタグの一部分であっても、相対URI **かもしれない**。相対URIは、そのURIを記載したプレイリストファイルのURIに対して解決されなければ**ならない**。
+
+メディアプレイリストのdurationは、プレイリスト中に含まれるメディアセグメントのdurationの合計である。
+
+ファイル名が.m3u8で終わる、かつ/もしくは、HTTPのContent-Typeが"application/vnd.apple.mpegurl"であるプレイリストはUTF-8 [[RFC3629](http://tools.ietf.org/html/rfc3629)]でエンコードされている。ファイル名が.m3uで終わる、かつ/もしくは、HTTPのContent-Type [[RFC2616](http://tools.ietf.org/html/rfc2616)]が"audio/mpegurl"であるプレイリストはUS-ASCII[[US ASCII](http://tools.ietf.org/html/draft-pantos-http-live-streaming-12#ref-US_ASCII)]でエンコードされている。
+
+プレイリストファイルは下記のいずれかを満たさなければ**ならない**。
+* ファイル名が.m3u8で終わる、かつ/もしくは、(もしHTTPで転送される場合は) Content-Typeが"application/vnd.apple.mpegurl"である。
+* ファイル名が.m3uで終わる、かつ/もしくは、Content-Typeが"audio/mpegurl"である（互換性のため）。
