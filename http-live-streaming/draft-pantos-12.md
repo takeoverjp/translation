@@ -100,5 +100,5 @@ HTTPのような関連した標準の参考文献は第11章に挙げる。
 
 presentationを再生するために、クライアントは初めにプレイリストファイルを取得し、それからプレイリストに記載された各メディアセグメントを取得・再生する。クライアントはこの仕様書に記載されているように、セグメントの追加を検出するためにプレイリストファイルを再取得する。
 
-この文書のキーワード "MUST"、"MUST NOT"、"REQUIRED"、"SHALL"、"SHALL NOT"、"SHOULD"、"SHOULD NOT"、"RECOMMENDED"、"MAY"、そして "OPTIONAL" は RFC 2119 [RFC2119](http://tools.ietf.org/html/rfc2119) で記述されたとおりに解釈されるべきである。
+この文書のキーワード "MUST"、"MUST NOT"、"REQUIRED"、"SHALL"、"SHALL NOT"、"SHOULD"、"SHOULD NOT"、"RECOMMENDED"、"MAY"、そして "OPTIONAL" は RFC 2119 [[RFC2119](http://tools.ietf.org/html/rfc2119)] で記述されたとおりに解釈されるべきである。
 
