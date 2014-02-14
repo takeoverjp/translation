@@ -165,3 +165,20 @@ EXTINFタグは１つのメディアセグメントのdurationを表す。この
     #EXTINF:<duration>,<title>
 
 `<duration>`は、メディアセグメントのdurationを秒単位で表す、10進整数もしくは10進浮動小数である。`<duration>`が整数で表される場合は、実際のdurationにもっとも近い整数に丸められる**べきである**。プロトコルバージョンが3より小さい場合、`<duration>`は整数でなければ**ならない**。プロトコルバージョンが3以上の場合、`<duration>`は浮動小数である**べきである**。カンマに続く残りの部分`<title>`は、メディアセグメントのタイトルが可読形式で記載される。
+
+### 3.4. 新規タグ
+この仕様書では、以下の新規タグを定義する。
+EXT-X-BYTERANGE, EXT-X-TARGETDURATION, EXT-X-MEDIA-SEQUENCE, EXT-X-KEY, EXT-X-PROGRAM-DATE-TIME, EXT-X-ALLOW-CACHE, EXT-X-PLAYLIST-TYPE, EXT-X-STREAM-INF, EXT-X-I-FRAME-STREAM-INF, EXT-X-I-FRAMES-ONLY, EXT-X-MEDIA, EXT-X-ENDLIST, EXT-X-DISCONTINUITY, EXT-X-DISCONTINUITY-SEQUENCE, EXT-X-START, EXT-X-VERSION
+
+#### 3.4.1. EXT-X-BYTERANGE
+EXT-X-BYTERANGEタグはメディアセグメントがメディアURIで指定されるリソースの一区間であることを表す。このタグはプレイリストにおける次のメディアURIにのみ適用される。タグの書式は下記の通りである。
+
+    #EXT-X-BYTERANGE:<n>[@<o>]
+
+ここで`<n>`は、区間の長さのバイト数を表す10進整数である。もし`<o>`が存在するとき、それは区間の開始点をリソースの先頭からのバイト数で表す10進整数である。もし`<o>`が存在しなければ、区間の開始点は１つ前のメディアセグメントの区間の次のバイトである。
+
+もし`<o>`が存在しなければ、１つ前のメディアセグメントがプレイリスト中に存在しなければ**ならない**し、１つ前のメディアセグメントは同じメディアリソースの移築館でなければ**ならない**。
+
+EXT-X-BYTERANGEタグの適用されないメディアURIは、リソース全体がメディアセグメントに相当する。
+
+EXT-X-BYTERANGEタグはプロトコルバージョン４から導入された。このタグはマスタープレイリストに現れては**ならない**。
