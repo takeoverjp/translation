@@ -221,3 +221,7 @@ METHOD
 定義されている暗号化方式は、NONE, AES-128, SAMPLE-AESである。
 
 暗号化方式NONEはメディアセグメントが暗号化されていないことを意味する。もし暗号化方式がNONEの場合、属性URI, IV, KEYFORMAT, KEYFORMATVERSIONSは現れては**ならない**。
+
+暗号化方式AES-128はAdvanced Encryption Standard[[AES 128](http://tools.ietf.org/html/draft-pantos-http-live-streaming-12#ref-AES_128)]によってメディアセグメント全体を暗号化していることを意味する。このとき鍵長は128ビットでパディング方式はPKCS7[[RFC5652](http://tools.ietf.org/html/rfc5652)]である。もし暗号化方式がAES-128の場合、URI属性は必ず現れなければ**ならない**。IV属性は現れる**かもしれない**。IV属性に関する詳細は、5.2章を参考のこと。
+
+暗号化方式SAMPLE-AESはメディアセグメントがAdvanced Encryption Standard[[AES 128](http://tools.ietf.org/html/draft-pantos-http-live-streaming-12#ref-AES_128)]を用いて暗号化された音楽か映像かその他のサンプルのエレメンタリストリームを含むことを意味する。エレメンタリストリームがどのように暗号化されているかはメディアのエンコード方式によって決まる。H.264 [[H 264](http://tools.ietf.org/html/draft-pantos-http-live-streaming-12#ref-H_264)]かAAC [[ISO 14496](http://tools.ietf.org/html/draft-pantos-http-live-streaming-12#ref-ISO_14496)]かAC-3 [[AC 3](http://tools.ietf.org/html/draft-pantos-http-live-streaming-12#ref-AC_3)]のエレメンタリストリームに対する暗号化方式は、[[SampleEnc](http://tools.ietf.org/html/draft-pantos-http-live-streaming-12#ref-SampleEnc)]に記載されている。IV属性は現れる**かもしれない**。IV属性に関する詳細は、5.2章を参考のこと。
